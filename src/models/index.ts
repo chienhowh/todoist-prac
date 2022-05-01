@@ -7,3 +7,10 @@ export interface Task {
     projectId: string;
     [propNams: string]: any
 }
+
+export interface Project {
+    name: string;
+    projectId: string;
+    userId: string;
+    [propNams: string]: any
+}

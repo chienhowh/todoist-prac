@@ -3,12 +3,14 @@ import './App.scss';
 import Header from './components/layout/Header';
 import Content from './components/layout/Content';
 import dayjs from 'dayjs';
-import { useTasks } from './hooks'
+import { useProjects, useTasks } from './hooks'
 function App() {
   const date = dayjs().format('DD/MM/YYYY');
 
   const tasks = useTasks('1');
+  const projects = useProjects();
   console.log(tasks);
+  console.log(projects);
 
   return (
 

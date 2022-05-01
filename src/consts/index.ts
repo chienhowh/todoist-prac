@@ -14,7 +14,8 @@ const collatedTasks = [
 ]
 
 const FB_COLLECTIONS = {
-    TASKS: 'tasks'
+    TASKS: 'tasks',
+    PROJECTS: 'projects'
 }
 
 const FB_KEYS = {
