@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaChevronDown, FaInbox, FaRegCalendarAlt, FaRegCalendar } from 'react-icons/fa'
+import Projects from '../Projects'
 function Sidebar() {
     return (
         <div className='sidebar'>
@@ -14,8 +15,7 @@ function Sidebar() {
                 <span><FaChevronDown /></span>
                 <h2>Projects</h2>
             </div>
-            <ul className='sidebar__projects'>Projects will be here </ul>
-            Here
+            <ul className='sidebar__projects'><Projects /></ul>
         </div>
     )
 }
