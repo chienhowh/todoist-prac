@@ -1,7 +1,7 @@
 const TEST = {
     userId: 'E8RT0a1RVfbpFSYnguX6'
 }
-const enum COLLATED_KEYS {
+enum COLLATED_KEYS {
     INBOX = 'Inbox',
     TODAY = 'Today',
     NEXT_7_DAYS = 'Next_7_days'
