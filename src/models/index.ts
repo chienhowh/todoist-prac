@@ -1,4 +1,4 @@
-export interface Task {
+export interface ITask {
     /** DD/MM/YYYY */
     data: string;
     isDone: boolean;
@@ -8,7 +8,7 @@ export interface Task {
     [propNams: string]: any
 }
 
-export interface Project {
+export interface IProject {
     name: string;
     projectId: string;
     userId: string;
