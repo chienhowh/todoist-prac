@@ -1,12 +1,15 @@
 import React, { useContext } from 'react'
 import { ProjectContext } from '../context'
+import IndividualProject from './IndividualProject';
 
 function Projects() {
     const projects = useContext(ProjectContext);
     return (
-        <ul>
-            {projects.map(p => <li key={p.projectId}>{p.name}</li>)}
-        </ul>
+        <>{projects.map(p => <li key={p.projectId} className="sidebar__project">
+            <div>
+                <IndividualProject project={p} />
+            </div></li>)}
+        </>
     )
 }
 
