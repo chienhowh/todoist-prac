@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, addDoc, onSnapshot, doc, query, getDocs, where, DocumentData, Query } from "firebase/firestore";
+import { collection, query, getDocs, where } from "firebase/firestore";
 import { db } from '../firebase';
 import { COLLATED_KEYS, FB_COLLECTIONS, FB_KEYS, TEST } from "../consts";
 import { isCollatedTask } from "../helpers";
@@ -46,6 +46,8 @@ const useTasks = (projectId: string) => {
 
 const useProjects = () => {
     const [projects, setProjects] = useState<IProject[]>([]);
+    console.log('useProject hooks', projects);
+
     useEffect(() => {
         const projectRef = collection(db, FB_COLLECTIONS.PROJECTS);
         const fetchData = async () => {
@@ -55,8 +57,8 @@ const useProjects = () => {
             setProjects(() => result)
         }
         fetchData();
-    }, [])
-    return projects;
+    }, [projects.length])
+    return { projects, setProjects };
 }
 
 export { useTasks, useProjects }

@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createContext } from "react";
 import { useProjects } from "../hooks";
 import { IProject } from '../models';
 
-export const ProjectContext = createContext<IProject[]>([]);
+interface Context {
+    projects: IProject[];
+    setProjects: React.Dispatch<React.SetStateAction<IProject[]>>;
+}
+
+
+export const ProjectContext = createContext<any>({});
 
 
 export const ProjectProvider = ({ children }: { children: React.ReactNode }) => {
-    const projects = useProjects();
-    return (<ProjectContext.Provider value={projects}>
+    const { projects, setProjects } = useProjects();
+    console.log('projectProvider');
+
+    return (<ProjectContext.Provider value={{ projects, setProjects }}>
         {children}
     </ProjectContext.Provider>)
 }

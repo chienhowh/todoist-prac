@@ -4,7 +4,7 @@ import Sidebar from './Sidebar'
 
 function Content() {
     return (
-        <section>
+        <section className='content'>
             <Sidebar />
             <Task />
         </section>

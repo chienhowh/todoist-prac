@@ -1,20 +1,23 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { IProject } from '../models'
 import { FaTrashAlt } from 'react-icons/fa'
 import Modal from './Modal/Modal'
 import { collection, query, where, getDocs, deleteDoc, doc } from 'firebase/firestore'
 import { FB_COLLECTIONS, FB_KEYS, TEST } from '../consts'
 import { db } from '../firebase'
+import { ProjectContext } from '../context'
 interface Props {
     project: IProject
 }
 
 function IndividualProject({ project }: Props) {
-    const [showConfirm, setShowConfirm] = useState(false)
+    const [showConfirm, setShowConfirm] = useState(false);
+    const { setProjects } = useContext(ProjectContext);
     const handleDeleteProject = () => {
         const deleteData = async () => {
             await deleteDoc(doc(db, FB_COLLECTIONS.PROJECTS, project.id));;
-            setShowConfirm(!showConfirm)
+            setShowConfirm(!showConfirm);
+            setProjects([]);
         }
         deleteData();
     }

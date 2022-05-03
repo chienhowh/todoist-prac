@@ -4,17 +4,17 @@ import { IProject } from '../models';
 import IndividualProject from './IndividualProject';
 
 function Projects() {
-    const projects = useContext(ProjectContext);
+    const { projects } = useContext(ProjectContext);
     const { selectedProject, setSelectedProject } = useContext(SelectedProjectContext);
     const selectProjectHandler = (project: IProject) => { setSelectedProject(project) }
     console.log(selectedProject)
-    return (
-        <>{projects.map(p => <li key={p.projectId} onClick={() => selectProjectHandler(p)} className={`sidebar__project ${selectedProject.id === p.id ? 'active' : ''}`}>
-            <div>
-                <IndividualProject project={p} />
-            </div></li>)}
-        </>
-    )
+    console.log('Projects::', projects)
+    return projects.map((p: IProject) => <li key={p.projectId} onClick={() => selectProjectHandler(p)} className={`sidebar__project ${selectedProject.id === p.id ? 'active' : ''}`}>
+        <div>
+            <IndividualProject project={p} />
+        </div></li>)
 }
+
+
 
 export default Projects
