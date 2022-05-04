@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { SelectedProjectContext } from '../context';
 import { useTasks } from '../hooks';
 import { IProject, ITask } from '../models';
+import AddTask from './AddTask';
 
 function Task() {
     const { selectedProject }: { selectedProject: IProject } = useContext(SelectedProjectContext);
@@ -19,6 +20,7 @@ function Task() {
                     <span>{task.name}</span>
                 </li>)}
             </ul>
+            <AddTask />
         </div>
     )
 }
