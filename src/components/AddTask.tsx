@@ -6,6 +6,7 @@ import { db } from '../firebase';
 import { generateId } from '../helpers';
 import { IProject } from '../models';
 import ProjectOverlay from './ProjectOverlay';
+import TaskDate from './TaskDate';
 interface Props {
     isShowAddTaskBtn?: boolean;
     isShowAddTaskBoard?: boolean;
@@ -14,11 +15,12 @@ interface Props {
 function AddTask({ isShowAddTaskBoard = false, isShowAddTaskBtn = true }: Props) {
     const [showAddTaskBoard, setShowAddTaskBoard] = useState(isShowAddTaskBoard)
     const inputRef = useRef<HTMLInputElement>(null);
-    // add task to which project
+    /** add task to selected project */
     const [project, setProject] = useState<IProject>();
     const [showProjectOverlay, setShowProjectOverlay] = useState(false);
-    const [showTaskDate, setShowTaskDate] = useState(false);
-
+    // date start
+    const [showTaskDate, setShowTaskDate] = useState<boolean>(false);
+    const [taskDate, setTaskDate] = useState<string>();
     const addTask = async () => {
         if (!inputRef.current?.value) { return; }
         const projectId = project?.projectId;
@@ -38,6 +40,7 @@ function AddTask({ isShowAddTaskBoard = false, isShowAddTaskBtn = true }: Props)
         console.log(requestBody);
         await addDoc(collection(db, FB_COLLECTIONS.TASKS), requestBody);
         setProject(undefined);
+        setTaskDate(undefined);
         setShowAddTaskBoard(false);
         setShowProjectOverlay(false);
 
@@ -71,8 +74,9 @@ function AddTask({ isShowAddTaskBoard = false, isShowAddTaskBtn = true }: Props)
                             </span>
                         </div>
                     </>
+                    <div>{project?.name}::{taskDate}</div>
                     <ProjectOverlay setProject={setProject} showProjectOverlay={showProjectOverlay} setShowProjectOverlay={setShowProjectOverlay} />
-                    <p>date here</p>
+                    <TaskDate showTaskDate={showTaskDate} setShowTaskDate={setShowTaskDate} setTaskDate={setTaskDate} />
                     <input
                         className="add-task__content"
 
