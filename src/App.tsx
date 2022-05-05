@@ -1,17 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import Header from './components/layout/Header';
 import Content from './components/layout/Content';
 import { ProjectProvider, SelectedProjectProvider } from './context';
 
 function App() {
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
   return (
     <SelectedProjectProvider>
       <ProjectProvider>
-        <div className="App" >
-          <Header />
+        <main
+          className={isDarkMode ? 'darkmode' : ''}
+        >
+          <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
           <Content />
-        </div>
+        </main>
       </ProjectProvider>
     </SelectedProjectProvider>
   );
