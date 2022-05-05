@@ -1,5 +1,11 @@
+import { addDoc, collection } from 'firebase/firestore';
 import React, { useRef, useState } from 'react'
 import { FaRegListAlt, FaRegCalendarAlt } from 'react-icons/fa';
+import { FB_COLLECTIONS } from '../consts';
+import { db } from '../firebase';
+import { generateId } from '../helpers';
+import { IProject } from '../models';
+import ProjectOverlay from './ProjectOverlay';
 interface Props {
     isShowAddTaskBtn?: boolean;
     isShowAddTaskBoard?: boolean;
@@ -8,8 +14,34 @@ interface Props {
 function AddTask({ isShowAddTaskBoard = false, isShowAddTaskBtn = true }: Props) {
     const [showAddTaskBoard, setShowAddTaskBoard] = useState(isShowAddTaskBoard)
     const inputRef = useRef<HTMLInputElement>(null);
+    // add task to which project
+    const [project, setProject] = useState<IProject>();
     const [showProjectOverlay, setShowProjectOverlay] = useState(false);
     const [showTaskDate, setShowTaskDate] = useState(false);
+
+    const addTask = async () => {
+        if (!inputRef.current?.value) { return; }
+        const projectId = project?.projectId;
+        // let collatedDate = '';
+        // if (projectId === 'TODAY') {
+        //     collatedDate = moment().format('DD/MM/YYYY');
+        // } else if (projectId === 'NEXT_7') {
+        //     collatedDate = moment().add(7, 'days').format('DD/MM/YYYY');
+        // }
+        const requestBody = {
+            name: inputRef.current.value,
+            date: '',
+            projectId,
+            userId: 'E8RT0a1RVfbpFSYnguX6',
+            isDone: false
+        }
+        console.log(requestBody);
+        await addDoc(collection(db, FB_COLLECTIONS.TASKS), requestBody);
+        setProject(undefined);
+        setShowAddTaskBoard(false);
+        setShowProjectOverlay(false);
+
+    }
     return (
         <div
         >
@@ -39,7 +71,7 @@ function AddTask({ isShowAddTaskBoard = false, isShowAddTaskBtn = true }: Props)
                             </span>
                         </div>
                     </>
-                    <p>Project oberlay</p>
+                    <ProjectOverlay setProject={setProject} showProjectOverlay={showProjectOverlay} setShowProjectOverlay={setShowProjectOverlay} />
                     <p>date here</p>
                     <input
                         className="add-task__content"
@@ -51,6 +83,9 @@ function AddTask({ isShowAddTaskBoard = false, isShowAddTaskBtn = true }: Props)
                         type="button"
                         className="add-task__submit"
                         data-testid="add-task"
+                        onClick={() => {
+                            addTask();
+                        }}
                     >
                         Add Task
                     </button>
