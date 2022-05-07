@@ -1,5 +1,9 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { BsSunrise, BsSunset } from "react-icons/bs";
+import { SelectedProjectContext } from '../../context';
+import { useTasks } from '../../hooks';
+import { IProject } from '../../models';
+import AddTask from '../AddTask';
 
 interface Props {
     isDarkMode: boolean;
@@ -7,6 +11,9 @@ interface Props {
 }
 
 function Header({ isDarkMode, setIsDarkMode }: Props) {
+    const [showAddTaskBoard, setShowAddTaskBoard] = useState(false);
+    const { selectedProject }: { selectedProject: IProject } = useContext(SelectedProjectContext);
+    const { fetchData } = useTasks(selectedProject.projectId);
     return (
         <header className="header" data-testid="header">
             <nav>
@@ -20,6 +27,7 @@ function Header({ isDarkMode, setIsDarkMode }: Props) {
                                 data-testid="quick-add-task-action"
                                 aria-label="Quick add task"
                                 type="button"
+                                onClick={() => setShowAddTaskBoard(!showAddTaskBoard)}
                             >
                                 +
                             </button>
@@ -36,7 +44,7 @@ function Header({ isDarkMode, setIsDarkMode }: Props) {
                     </ul>
                 </div>
             </nav>
-
+            <AddTask isShowAddTaskBtn={false} setShowAddTaskBoard={setShowAddTaskBoard} showAddTaskBoard={showAddTaskBoard} refreshData={fetchData} />
 
         </header>
     )

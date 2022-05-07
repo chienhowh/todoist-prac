@@ -32,6 +32,7 @@ ul {
 $generic-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 4px 11px;
 $generic-border: 1px solid #f1f1f1;
 $generic-bg: #db4c3f;
+$generic-lighter-red: #db4c3f;
 
 /* Mixins
     ============================================ */
@@ -138,6 +139,29 @@ $generic-bg: #db4c3f;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
         background-color: #282828;
         border-color: transparent;
+        color: white;
+    }
+    .tasks {
+        &__list li {
+            .checkbox-holder {
+                .checkbox {
+                    cursor: pointer;
+                    border-color: gray;
+                    color: #343434;
+                    height: 16px;
+                    width: 16px;
+                    display: block;
+                    border: 1px solid gray;
+                    border-radius: 16px;
+                }
+            }
+            &.done {
+                text-decoration: line-through;
+                .checkbox {
+                    background-color: gray;
+                }
+            }
+        }
     }
 }
 
@@ -484,10 +508,6 @@ header {
         margin: 0 30px 20px 0;
     }
 
-    .add-task {
-        margin-top: 20px;
-    }
-
     &__list li {
         display: -webkit-box;
         display: -ms-flexbox;
@@ -499,7 +519,15 @@ header {
         font-size: 14px;
         list-style-type: none;
         border-bottom: 1px solid #f0f0f0;
-
+        &:hover {
+            background-color: #f9f9f9;
+            .task-delete {
+                display: block;
+                margin-left: auto;
+                margin-right: 10px;
+                cursor: pointer;
+            }
+        }
         .checkbox-holder {
             margin-right: 20px;
             display: -webkit-box;
@@ -512,17 +540,25 @@ header {
             -ms-flex-pack: center;
             justify-content: center;
             line-height: 16px;
-
             .checkbox {
                 cursor: pointer;
-                border-color: gray;
+                border-color: $generic-lighter-red;
                 color: #343434;
                 height: 16px;
                 width: 16px;
                 display: block;
-                border: 1px solid gray;
+                border: 1px solid $generic-lighter-red;
                 border-radius: 16px;
             }
+        }
+        &.done {
+            text-decoration: line-through;
+            .checkbox {
+                background-color: $generic-lighter-red;
+            }
+        }
+        .task-delete {
+            display: none;
         }
     }
 }
@@ -560,10 +596,13 @@ header {
             -webkit-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
 
+            .quick-add-task {
+                display: flex;
+                margin-bottom: 8px;
+            }
             .header {
                 font-size: 13px;
-                margin-bottom: 20px;
-                float: left;
+                margin: 0;
             }
         }
 
@@ -573,7 +612,7 @@ header {
             float: right;
             font-weight: bold;
             font-size: 12px;
-            margin-top: 10px;
+            margin-left: auto;
         }
     }
 
@@ -621,7 +660,7 @@ header {
 .add-project {
     @include no-select;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin: 16px 8px;
 }
 
 .add-task__plus,

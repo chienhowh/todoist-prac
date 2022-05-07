@@ -5,7 +5,7 @@ import Content from './components/layout/Content';
 import { ProjectProvider, SelectedProjectProvider } from './context';
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   return (
     <SelectedProjectProvider>
       <ProjectProvider>

@@ -14,8 +14,6 @@ export const ProjectContext = createContext<any>({});
 
 export const ProjectProvider = ({ children }: { children: React.ReactNode }) => {
     const { projects, setProjects } = useProjects();
-    console.log('projectProvider');
-
     return (<ProjectContext.Provider value={{ projects, setProjects }}>
         {children}
     </ProjectContext.Provider>)

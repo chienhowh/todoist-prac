@@ -14,14 +14,12 @@ function AddProject() {
         const name = inputRef.current?.value;
         if (!name) { return; }
         const addProject = async () => {
-            await addDoc(collection(db, FB_COLLECTIONS.PROJECTS,), {
+            await addDoc(collection(db, FB_COLLECTIONS.PROJECTS), {
                 name,
                 projectId: generateId(),
                 userId: 'E8RT0a1RVfbpFSYnguX6'
             });
             setProjects([]);
-            console.log('setProjects');
-
             setShowAdd(!showAdd);
         }
         addProject();
