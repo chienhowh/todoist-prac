@@ -5,18 +5,21 @@ import { FB_COLLECTIONS } from '../consts';
 import { SelectedProjectContext } from '../context';
 import { db } from '../firebase';
 import { useTasks } from '../hooks';
+import { useAppDispatch } from '../hooks/hooks';
 import { IProject } from '../models';
+import { getTasks } from '../slices/tasks';
 import ProjectOverlay from './ProjectOverlay';
 import TaskDate from './TaskDate';
 interface Props {
     isShowAddTaskBtn?: boolean;
     showAddTaskBoard: boolean;
     setShowAddTaskBoard: (isShowAddTaskBoard: boolean) => void
-    refreshData: () => Promise<void>;
 }
 
-function AddTask({ showAddTaskBoard, setShowAddTaskBoard, isShowAddTaskBtn = true, refreshData }: Props) {
+function AddTask({ showAddTaskBoard, setShowAddTaskBoard, isShowAddTaskBtn = true }: Props) {
     const inputRef = useRef<HTMLInputElement>(null);
+    const dispatch = useAppDispatch()
+    const { selectedProject }: { selectedProject: IProject } = useContext(SelectedProjectContext);
     /** add task to selected project */
     const [project, setProject] = useState<IProject>();
     const [showProjectOverlay, setShowProjectOverlay] = useState(false);
@@ -29,26 +32,20 @@ function AddTask({ showAddTaskBoard, setShowAddTaskBoard, isShowAddTaskBtn = tru
     const addTask = async () => {
         if (!inputRef.current?.value || !taskDate || !project) { return; }
         const projectId = project?.projectId;
-        // let collatedDate = '';
-        // if (projectId === 'TODAY') {
-        //     collatedDate = moment().format('DD/MM/YYYY');
-        // } else if (projectId === 'NEXT_7') {
-        //     collatedDate = moment().add(7, 'days').format('DD/MM/YYYY');
-        // }
         const requestBody = {
             name: inputRef.current.value,
-            date: '',
+            date: taskDate,
             projectId,
             userId: 'E8RT0a1RVfbpFSYnguX6',
             isDone: false
         }
         await addDoc(collection(db, FB_COLLECTIONS.TASKS), requestBody);
-        refreshData();
         setProject(undefined);
         setTaskDate(undefined);
         setShowAddTaskBoard(false);
         setShowProjectOverlay(false);
         setShowTaskDate(false);
+        dispatch(getTasks(selectedProject.projectId));
     }
     return (
         <div className={`add-task ${showAddTaskBoard ? 'add-task__overlay' : ''}`}

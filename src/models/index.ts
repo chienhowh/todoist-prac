@@ -1,6 +1,6 @@
 export interface ITask {
     /** DD/MM/YYYY */
-    data: string;
+    date: string;
     isDone: boolean;
     name: string;
     userId: string;
