@@ -13,7 +13,8 @@ function Header({ isDarkMode, setIsDarkMode }: Props) {
         <header className="header" data-testid="header">
             <nav>
                 <div className="logo">
-                    <img src="/images/logo.png" alt="Todoist" />
+                    {/* <img src="/images/logo.png" alt="Todoist" /> */}
+                    Todoist
                 </div>
                 <div className="settings">
                     <ul>

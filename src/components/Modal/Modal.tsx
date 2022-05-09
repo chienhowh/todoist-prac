@@ -22,21 +22,32 @@ function Modal({ isShow, title, content, onClose, onConfirm }: Props) {
                 <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
                     <header className={styles.modal_header}>
                         <h2 className={styles["modal_header-title"]}> {title ?? '提示訊息'}</h2>
-                        <span className={styles.close} >
+                        {/* <span className={styles.close} >
                             <IoClose />
-                        </span>
+                        </span> */}
                     </header>
                     <main className={styles.modal_content}>
                         {content ?? ''}
                     </main>
-                    <footer className={styles.modal_footer}>
-                        <button className={styles["modal-close"]} onClick={() => onClose()}>
-                            Cancel
+                    <footer style={{ textAlign: 'right' }}>
+                        <button
+                            type="button"
+                            className="add-task__submit"
+                            data-testid="add-task"
+                            onClick={
+                                () => onConfirm()}
+                        >
+                            Confirm
                         </button>
 
-                        <button className={styles.submit} onClick={
-                            () => onConfirm()
-                        }>Submit</button>
+                        <span
+                            className="add-task__cancel"
+                            onClick={() => onClose()}
+                            tabIndex={0}
+                            role="button"
+                        >
+                            Cancel
+                        </span>
                     </footer>
                 </div>
             </div>

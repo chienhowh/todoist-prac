@@ -4,7 +4,6 @@ import { FaRegListAlt, FaRegCalendarAlt } from 'react-icons/fa';
 import { FB_COLLECTIONS } from '../consts';
 import { SelectedProjectContext } from '../context';
 import { db } from '../firebase';
-import { useTasks } from '../hooks';
 import { useAppDispatch } from '../hooks/hooks';
 import { IProject } from '../models';
 import { getTasks } from '../slices/tasks';
@@ -98,16 +97,16 @@ function AddTask({ showAddTaskBoard, setShowAddTaskBoard, isShowAddTaskBtn = tru
                     >
                         Add Task
                     </button>
-                    {
-                        <span
-                            className="add-task__cancel"
-                            onClick={() => setShowAddTaskBoard(!showAddTaskBoard)}
-                            tabIndex={0}
-                            role="button"
-                        >
-                            Cancel
-                        </span>
-                    }
+
+                    <span
+                        className="add-task__cancel"
+                        onClick={() => setShowAddTaskBoard(!showAddTaskBoard)}
+                        tabIndex={0}
+                        role="button"
+                    >
+                        Cancel
+                    </span>
+
                     <span
                         className="add-task__project"
 
