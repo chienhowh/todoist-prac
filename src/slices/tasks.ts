@@ -12,8 +12,6 @@ export const getTasks = createAsyncThunk(
     async (projectId: string) => {
         const tasksRef = collection(db, FB_COLLECTIONS.TASKS);
         let unsub = query(tasksRef, where(FB_KEYS.USERID, "==", TEST.userId));
-        console.log('thunk work?', projectId);
-
         if (isCollatedTask(projectId)) {
             switch (projectId) {
                 case COLLATED_KEYS.INBOX:
@@ -60,7 +58,6 @@ const tasksSlice = createSlice({
             if (projectId === COLLATED_KEYS.NEXT_7_DAYS) {
                 result = result.filter(t => dayjs(t.date, 'DD/MM/YYYY').isBetween(dayjs(), dayjs().add(7, 'day'), null, '(]'));
             }
-            console.log(result);
             state.status = 'succeeded';
             state.tasks = result;
         })
